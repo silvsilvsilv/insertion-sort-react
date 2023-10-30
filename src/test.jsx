@@ -1,31 +1,18 @@
-import * as React from 'react';
-import { useState } from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import { useState, useEffect } from "react";
 
-export default function BasicTextFields() {
+export default function Counter() {
+  const [count, setCount] = useState(0);
+  const [calculation, setCalculation] = useState(0);
 
-    const[text,setText] = useState([1,2,3,4,5])
+  useEffect(() => {
+    setCalculation(() => count * 2);
+  }); // <- add the count variable here
 
-    const handleText = (e) =>
-    {
-        let txt = e.target.value;
-        txt = txt.split('')
-        setText(txt.join(','))
-    }
-
-    return (
-    <Box
-      component="form"
-      sx={{
-        '& > :not(style)': { m: 1, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <TextField id="outlined-basic" label="Outlined" variant="outlined" onChange={handleText} defaultValue={text}/>
-    <div>{text}</div>
-    
-    </Box>
+  return (
+    <>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount((c) => c + 1)}>+</button>
+      <p>Calculation: {calculation}</p>
+    </>
   );
 }

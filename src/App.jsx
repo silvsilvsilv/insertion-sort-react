@@ -14,7 +14,8 @@ import Typography from '@mui/material/Typography';
 
 import InsertionSort from './InsertionSort.jsx';
 
-import { Grid, TextField } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { ButtonGroup, Grid, TextField } from '@mui/material';
 
 function Copyright() {
   return (
@@ -26,21 +27,10 @@ function Copyright() {
   );
 }
 
-export default function Checkout() {
-	const [array, setArray] = React.useState("12,11,13,5,6");
-	const [activeStep, setActiveStep] = React.useState(0);
-
-	const handleText = (e) =>
-	{
-		if(e.target.value != null)
-		{
-			let txt = e.target.value;
-			setArray(txt);
-		}
-
-		let txt = e.target.value;
-		setArray(txt);
-	}
+export default function App() {
+	const [userInput, setUserInput] = useState("12,11,13,5,6")
+	const [array, setArray] = useState("");
+	const [activeStep, setActiveStep] = useState(0);
 
 	function getStepContent(step)
 	{
@@ -58,19 +48,22 @@ export default function Checkout() {
 		}
 	}
 
-	const handleNext = () =>
+	const handleSort = () =>
 	{	
-
-		if(activeStep < 1)
-		{
-			setActiveStep(activeStep + 1);
-		}
-		else
-		{
-			setActiveStep(1);
-		}
-		
+		setActiveStep(activeStep > 1? activeStep: activeStep + 1);
 	}
+
+	const handleClear = () =>
+	{
+		setActiveStep(0);
+		setArray("");
+		setUserInput("");
+	}
+
+	useEffect(()=>{
+		setArray(userInput);
+
+	},[activeStep]);
 
 	return (
 		<React.Fragment>
@@ -101,13 +94,22 @@ export default function Checkout() {
 					<TextField
 						label="Array to Sort"
 						variant='outlined'
+						helperText="Separate values by a comma (,)"
 						fullWidth
-						onChange={handleText}
-						defaultValue={array}
+						value={userInput}
+						onChange={(e)=>{ setUserInput(e.target.value)} }
 					/>
 					</Grid>
+					<br/>
+					<ButtonGroup variant='contained' sx={ {display:'flex',alignItems:'center',justifyContent:'center'} } disableElevation>
 
-					<Button onClick={handleNext} variant='outlined'>Sort</Button>
+						<Button onClick={handleSort} color='success'>Sort</Button>
+						<Button onClick={handleClear} color='error'>Clear</Button>
+
+					</ButtonGroup>
+					<br/>
+					<Typography variant='h5'>Array to sort: {array}</Typography> 
+					<br/>
 					{getStepContent(activeStep)}
 				</Paper>
 				<Copyright />

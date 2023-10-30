@@ -2,7 +2,7 @@ import { Typography } from '@mui/material';
 import * as React from 'react';
 
 
-function AlgorithmStep({array, algKey})
+function AlgorithmStep({array, algKey, pass})
 {
     let x = array.join(' ');
 
@@ -16,6 +16,7 @@ function AlgorithmStep({array, algKey})
     
     return(
         <Typography align='center'>
+            {pass != null? `Pass ${pass}`:''} {pass == null? '':<br/>}
             {isAlgKeyNull(algKey)} {isAlgKeyNull(algKey)?<br/>:''}
             {x}
         </Typography>
@@ -38,7 +39,7 @@ export default function InsertionSort({array})
         j = i - 1;
         
         // algSteps.push(<AlgorithmStep array={arr} key={Math.random()*Math.random()}/>)
-        algSteps.push({"array":arrCopy,"key":null});
+        algSteps.push({"array":arrCopy,"key":null,"pass":i});
 
         while(j >= 0 && arr[j] > k)
         {
@@ -47,7 +48,7 @@ export default function InsertionSort({array})
 
             
             // algSteps.push(<AlgorithmStep array={arr} algKey={k} key={Math.random()*Math.random()}/>)
-            algSteps.push({"array":arrCopy,"key":k});
+            algSteps.push({"array":arrCopy,"key":k,"pass":null});
         }
 
         arr[j+1] = k;
@@ -56,11 +57,13 @@ export default function InsertionSort({array})
 
     var displaySteps = [];
 
-    algSteps.forEach((i)=> displaySteps.push(<AlgorithmStep array={i.array} algKey={i.key} key={Math.random()*Math.random()}/>));
+    algSteps.forEach((i)=> displaySteps.push(<AlgorithmStep array={i.array} algKey={i.key} pass={i.pass} key={Math.random()*Math.random()}/>));
 
     return(
         <>
             {displaySteps}
+            <br/>
+            <Typography variant="h5">Sorted array: {arr.sort((a,b)=> a-b).join(',')}</Typography>
         </>
     );
 }
