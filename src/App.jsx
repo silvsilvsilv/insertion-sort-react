@@ -1,15 +1,10 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Toolbar from '@mui/material/Toolbar';
 import Paper from '@mui/material/Paper';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 
 import InsertionSort from './InsertionSort.jsx';
@@ -20,7 +15,7 @@ import { ButtonGroup, Grid, TextField } from '@mui/material';
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}  
+      {'John Leonil Silva CSC 204 | '}  
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -28,7 +23,7 @@ function Copyright() {
 }
 
 export default function App() {
-	const [userInput, setUserInput] = useState("12,11,13,5,6")
+	const [userInput, setUserInput] = useState("14,7,55,40,20,8,10,30")
 	const [array, setArray] = useState("");
 	const [activeStep, setActiveStep] = useState(0);
 
@@ -110,7 +105,8 @@ export default function App() {
 					<br/>
 					<Typography variant='h5'>Array to sort: {array}</Typography> 
 					<br/>
-					{getStepContent(activeStep)}
+					
+					{(array != "")? getStepContent(activeStep) : <Typography variant='h6'>Array is empty</Typography>}
 				</Paper>
 				<Copyright />
 			</Container>
